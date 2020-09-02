@@ -4,7 +4,7 @@ const menuList = [
     {
         title: '首页',
         key: '/admin/home',
-        pages:"./pages/Home"
+        pages:"./pages/home"
     },
     {
         title: 'UI',
@@ -12,43 +12,36 @@ const menuList = [
         children: [
             {
                 title: '按钮',
-                key: '/admin/ui/buttons',
-                pages:'./pages/Ui/Button'
+                key: '/admin/ui/button',
+                pages:'./pages/ui/button'
             },
             {
                 title: '弹框',
                 key: '/admin/ui/modals',
-                pages:'./pages/Ui/Modals'
             },
             {
                 title: 'Loading',
                 key: '/admin/ui/loadings',
-                pages:'./pages/Ui/Loadings'
             },
             {
                 title: '通知提醒',
                 key: '/admin/ui/notification',
-                pages:'./pages/Ui/Notice'
             },
             {
                 title: '全局Message',
                 key: '/admin/ui/messages',
-                pages:'./pages/Ui/Messages'
             },
             {
                 title: 'Tab页签',
                 key: '/admin/ui/tabs',
-                pages:'./pages/Ui/Tabs'
             },
             {
                 title: '图片画廊',
                 key: '/admin/ui/gallery',
-                pages:'./pages/Ui/Gallery'
             },
             {
                 title: '轮播图',
                 key: '/admin/ui/carousel',
-                pages:'./pages/Ui/Carousel'
             }
         ]
     },
@@ -59,12 +52,7 @@ const menuList = [
             {
                 title: '登录',
                 key: '/admin/form/login',
-                pages:'./pages/Form/FormLogin'
-            },
-            {
-                title: '登录Hook',
-                key: '/admin/form/loginHook',
-                pages:'./pages/Form/LoginHooks'
+                pages:'./pages/form/login'
             },
             {
                 title: '注册',
