@@ -13,8 +13,9 @@ export default class IRouter extends React.Component {
         return (
             <BrowserRouter>
                 <Main>
-                    <Redirect path="/" to="/admin/home"/>
-                    <Route path="/login" component={Login}/>
+                    <Switch>
+                    <Redirect exact  path="/" to="/admin/home"/>
+                    <Route exact path="/login" component={Login}/>
                     <Route path="/admin" render={() =>
                         <Admin>
                             <Switch>
@@ -25,6 +26,7 @@ export default class IRouter extends React.Component {
                             </Switch>
                         </Admin>
                     }/>
+                    </Switch>
 
                 </Main>
             </BrowserRouter>

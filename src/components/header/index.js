@@ -1,23 +1,45 @@
 import React from "react";
 import {Row,Col} from 'antd'
 import './index.less'
+import {withRouter} from 'react-router-dom'
+import constant from "../../utils/constant";
 
-export  default  class Header extends React.Component{
+class Header extends React.Component{
 	
 	constructor() {
 	    super();
-		this.state={
-			userName:'小卢'
+	    this.state={
+	    	username:''
 		}
 	}
-	
-    render() {
-        return (
+
+	componentDidMount() {
+		let loginInfoStr = localStorage.getItem(constant.login_info);
+		if (loginInfoStr){
+			let loginInfo =JSON.parse(loginInfoStr);
+			let username=loginInfo.username;
+			this.setState({
+				username:username
+			})
+		}else{
+			this.props.history.push("/login");
+		}
+	}
+
+	logout=()=>{
+		localStorage.removeItem(constant.login_info);
+		this.props.history.push("/login");
+	}
+
+	render() {
+		return (
             <div className="header">
 				<Row className="top">
 					<Col span="24">
-						<span>欢迎,{this.state.userName}</span>
-						<a href='#'>退出</a>
+						<span>欢迎,{this.state.username}</span>
+						<a href='' onClick={this.logout}>
+							退出
+						</a>
 					</Col>
 				</Row>
 				<Row className="breadcrumb">
@@ -29,8 +51,9 @@ export  default  class Header extends React.Component{
 						<span className="detail">晴</span>
 					</Col>
 				</Row>
-               
             </div>
         )
     }
 }
+
+export  default  withRouter(Header)

@@ -6,6 +6,7 @@ import NavLeft from "./components/navleft";
 import './style/common.less'
 export default  class App extends React.Component{
 
+
     render() {
         return (<div>
             <Row className="container">
