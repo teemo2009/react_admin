@@ -27,13 +27,15 @@ export default class Login extends React.Component{
         let username =formData['username'];
         let password =formData['password'];
         let remember=formData['remember'];
+
         service.login(username,password).then(res=>{
-            if (res.data===true){
+            console.log(res);
+         /*   if (res.data===true){
                 localStorage.setItem(constant.login_info,JSON.stringify({
                     username,password,remember
                 }));
                 this.props.history.push('/admin/home');
-            }
+            }*/
         });
     };
 

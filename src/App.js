@@ -3,7 +3,6 @@ import {Row,Col} from "antd";
 import Header from "./components/header"
 import Footer from "./components/footer"
 import NavLeft from "./components/navleft";
-import './style/common.less'
 export default  class App extends React.Component{
 
 

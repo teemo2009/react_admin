@@ -27,7 +27,6 @@ export default class IRouter extends React.Component {
                         </Admin>
                     }/>
                     </Switch>
-
                 </Main>
             </BrowserRouter>
         )
