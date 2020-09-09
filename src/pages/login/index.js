@@ -1,12 +1,13 @@
 import React from "react";
 import service from "./service";
 import constant from "../../utils/constant";
-import {Card,Form, Input, Button, Checkbox} from "antd";
-
+import md5 from 'md5'
+import {Button, Card, Checkbox, Form, Input} from "antd";
 import "./index.less"
-export default class Login extends React.Component{
 
-    layout= {
+export default class Login extends React.Component {
+
+    layout = {
         labelCol: {
             span: 4,
         },
@@ -23,27 +24,43 @@ export default class Login extends React.Component{
     }
 
 
-    onFinish = formData => {
-        let username =formData['username'];
-        let password =formData['password'];
-        let remember=formData['remember'];
+    constructor() {
+        super();
+        this.state={
+            username:'',
+            password:'',
+            remember:false
+        }
+        let userInfoJson= localStorage.getItem(constant.login_info);
+        if (userInfoJson){
+            let userInfo= JSON.parse(userInfoJson);
+            if (userInfo.remember){
+                this.state={
+                    username:userInfo.username,
+                    password:userInfo.password,
+                    remember:userInfo.remember
+                }
+            }
 
-        service.login(username,password).then(res=>{
-            console.log(res);
-         /*   if (res.data===true){
-                localStorage.setItem(constant.login_info,JSON.stringify({
-                    username,password,remember
-                }));
-                this.props.history.push('/admin/home');
-            }*/
+        }
+    }
+
+
+    onFinish = formData => {
+        let username = formData['username'];
+        let password = formData['password'];
+        let remember = formData['remember'];
+        let passwordMd5=md5(password);
+        service.login(username, passwordMd5).then(res => {
+            localStorage.setItem(constant.login_info, JSON.stringify({
+                username, password, remember
+            }));
+            this.props.history.push('/admin/home');
         });
     };
 
     onFinishFailed = errorInfo => {
-        console.log('Failed:', errorInfo);
     };
-
-
 
 
     componentDidMount() {
@@ -53,12 +70,14 @@ export default class Login extends React.Component{
 
     render() {
         return (<div className='login'>
-            <Card  className='wrap' title='小卢后台登录'>
+            <Card className='wrap' title='小卢后台登录'>
                 <Form
                     {...this.layout}
                     name="basic"
                     initialValues={{
-                        remember: false,
+                        username: this.state.username,
+                        password: this.state.password,
+                        remember: this.state.remember
                     }}
                     onFinish={this.onFinish}
                     onFinishFailed={this.onFinishFailed}
@@ -69,11 +88,11 @@ export default class Login extends React.Component{
                         rules={[
                             {
                                 required: true,
-                                message: 'Please input your username!',
+                                message: '请完善您的账号',
                             },
                         ]}
                     >
-                        <Input />
+                        <Input/>
                     </Form.Item>
 
                     <Form.Item
@@ -82,11 +101,11 @@ export default class Login extends React.Component{
                         rules={[
                             {
                                 required: true,
-                                message: 'Please input your password!',
+                                message: '请完善您的密码',
                             },
                         ]}
                     >
-                        <Input.Password />
+                        <Input.Password/>
                     </Form.Item>
 
                     <Form.Item {...this.tailLayout} name="remember" valuePropName="checked">
