@@ -8,14 +8,14 @@ const initialState = {
 }
 
 export default (state = initialState, action) => {
-    switch (action) {
-        case type.SWITCH_MENUS:
+    switch (action.type) {
+        case type.SWITCH_MENU:
             return {
                 ...state,
                 menuName: action.menuName
             }
             break;
         default:
-            break;
+            return {...state};
     }
 }

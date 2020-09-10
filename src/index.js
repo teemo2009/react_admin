@@ -2,10 +2,17 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './App.less';
 import Router from './router';
+import {Provider} from 'react-redux'
 import * as serviceWorker from './serviceWorker';
+import configureStore from './redux/store'
 
+
+const  store=configureStore();
 ReactDOM.render(
-    <Router />,
+    <Provider store={store}>
+        <Router />
+    </Provider>
+  ,
   document.getElementById('root')
 );
 

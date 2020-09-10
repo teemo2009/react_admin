@@ -1,6 +1,7 @@
 import React from "react";
 import {Row,Col} from 'antd'
 import './index.less'
+import {connect} from 'react-redux'
 import {withRouter} from 'react-router-dom'
 import constant from "../../utils/constant";
 
@@ -44,7 +45,7 @@ class Header extends React.Component{
 				</Row>
 				<Row className="breadcrumb">
 					<Col span="4" className="title">
-						首页
+						{this.props.menuName}
 					</Col>
 					<Col span="20" className="weather">
 						<span className="date">2020-08-24</span>
@@ -56,4 +57,10 @@ class Header extends React.Component{
     }
 }
 
-export  default  withRouter(Header)
+const mapStateToProps=state=>{
+	return {
+		menuName:state.menuName
+	}
+}
+
+export  default connect(mapStateToProps)(withRouter(Header))
