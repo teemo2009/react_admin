@@ -20,8 +20,9 @@ const menuList = [
                 key: '/admin/ui/modals',
             },
             {
-                title: 'Loading',
-                key: '/admin/ui/loadings',
+                title: '图片上传',
+                key: '/admin/ui/upload',
+                pages:'./pages/ui/upload'
             },
             {
                 title: '通知提醒',
@@ -57,6 +58,10 @@ const menuList = [
             {
                 title: '注册',
                 key: '/admin/form/reg',
+            },
+            {
+                title: 'hook',
+                key: '/admin/form/hook'
             }
         ]
     },
