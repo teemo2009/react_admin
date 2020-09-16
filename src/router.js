@@ -1,17 +1,34 @@
-import React from "react";
+import React ,{Suspense}from "react";
 import {BrowserRouter, Redirect, Route, Switch} from "react-router-dom";
+import menuConfig from "./config/menuConfig"
 import Main from "./Main";
 import Login from "./pages/login"
 import Admin from "./App"
-import Button from "./pages/ui/button"
-import Upload from './pages/ui/upload'
 import NoMatch from "./pages/nomatch";
-import Home from "./pages/home"
-import LoginForm from "./pages/form/login";
-import HookForm from  './pages/form/hook';
-import Rich from './pages/rich'
-
 export default class IRouter extends React.Component {
+    state={
+        routerList:null
+    }
+
+    getRouter=(data)=>{
+        return data.map((item)=>{
+            if (item.children){
+                return this.getRouter(item.children);
+            }
+            if (item.pages){
+                let component=React.lazy(()=>import(''+item.pages));
+                return (<Route path={item.key} component={component} key={item.key}/>)
+            }
+        })
+    }
+
+
+    componentDidMount() {
+        this.setState({
+            routerList:this.getRouter(menuConfig)
+        })
+    }
+
     render() {
         return (
             <BrowserRouter>
@@ -22,12 +39,9 @@ export default class IRouter extends React.Component {
                     <Route path="/admin" render={() =>
                         <Admin>
                             <Switch>
-                                <Route path="/admin/home" component={Home}/>
-                                <Route path="/admin/ui/button" component={Button}/>
-                                <Route path="/admin/form/login" component={LoginForm} />
-                                <Route path="/admin/form/hook" component={HookForm} />
-                                <Route path="/admin/rich" component={Rich}/>
-                                <Route path="/admin/ui/upload" component={Upload}/>
+                                <Suspense fallback={<div>正在加载...</div>}>
+                                {this.state.routerList}
+                                </Suspense>
                                 <Route component={NoMatch}/>
                             </Switch>
                         </Admin>
